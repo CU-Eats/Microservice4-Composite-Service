@@ -27,9 +27,9 @@ SECRET_KEY = "django-insecure-$6#9^$gkhn%+7hndcsfiwxtegl^1$8@9%9&!ho$gvtwu^yjppi
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['3.19.58.13', '127.0.0.1', 'localhost', '0.0.0.0']
+ALLOWED_HOSTS = ['18.218.176.54', '127.0.0.1', 'localhost', '0.0.0.0']
 
-RESTAURANT_URL = "http://127.0.0.1:8000"
+RESTAURANT_URL = "http://52.14.149.198:8000"
 # Application definition
 
 INSTALLED_APPS = [
@@ -124,4 +124,4 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-USER_SERVICE_HOST = "http://0.0.0.0:8002"
+USER_SERVICE_HOST = "http://18.218.176.54:8000"
