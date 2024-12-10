@@ -1,0 +1,8 @@
+INFO 2024-12-10 21:09:19,457 autoreload Watching for file changes with StatReloader
+INFO 2024-12-10 21:09:20,828 basehttp "GET / HTTP/1.1" 200 5103
+INFO 2024-12-10 21:13:16,002 autoreload Watching for file changes with StatReloader
+INFO 2024-12-10 21:17:12,893 autoreload Watching for file changes with StatReloader
+INFO 2024-12-10 21:17:15,261 basehttp "GET / HTTP/1.1" 200 5103
+WARNING 2024-12-10 21:17:34,419 log Method Not Allowed: /api/orders/create_batch_order/
+WARNING 2024-12-10 21:17:34,420 basehttp "GET /api/orders/create_batch_order/ HTTP/1.1" 405 8631
+INFO 2024-12-10 21:20:27,142 autoreload Watching for file changes with StatReloader
