@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "User",
+    "Restaurant",
+    "Order",
 ]
 
 MIDDLEWARE = [
@@ -125,3 +127,4 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 USER_SERVICE_HOST = "http://18.218.176.54:8000"
+ORDER_SERVICE_HOST = "http://13.59.9.154:8000"

@@ -18,13 +18,15 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
 from User.api.views import LoginUserView, CreateUserView
+from Order.api.views import OrderViewSet
 
 router = routers.DefaultRouter()
-
+router.register(r'api/orders', OrderViewSet, basename='orders')
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/restaurant/", include("Restaurant.urls")),
     path('api/user/login/', LoginUserView.as_view()),
     path('api/user/signup/', CreateUserView.as_view()),
+    path('', include(router.urls)),
 ]
