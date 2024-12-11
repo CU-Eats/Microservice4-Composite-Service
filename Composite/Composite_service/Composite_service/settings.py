@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "graphene_django"
 ]
 
 MIDDLEWARE = [
@@ -70,6 +71,12 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "Composite_service.wsgi.application"
+
+
+##### For GraphQL ##########
+GRAPHENE = {
+    "SCHEMA": "Composite_service.schema.schema"
+}
 
 
 # Database
