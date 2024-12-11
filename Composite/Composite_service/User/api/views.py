@@ -9,13 +9,10 @@ from django.conf import settings
 class LoginUserView(APIView):
 
     def post(self, request):
-        # Define the URL to the external service
         URL = f'{settings.USER_SERVICE_HOST}/users/get_one_user/'
 
-        # Extract parameters from the request data
-        payload = request.data  # Access JSON data in POST request
+        payload = request.data
 
-        # Check if both 'uni' and 'password' parameters are provided
         if 'uni' not in payload or 'password' not in payload:
             return Response(
                 {"error": "Please provide both 'uni' and 'password' parameters."},
@@ -28,10 +25,8 @@ class LoginUserView(APIView):
         }
 
         try:
-            # Make the POST request with JSON payload
             response = requests.get(URL, params=query_params)
 
-            # Handle specific response status codes
             if response.status_code == 401:
                 return Response(response.json(), status=status.HTTP_401_UNAUTHORIZED)
 
@@ -41,14 +36,12 @@ class LoginUserView(APIView):
             if response.status_code == 404:
                 return Response(response.json(), status=status.HTTP_404_NOT_FOUND)
 
-            # For other status codes, return a generic error message
             return Response(
                 {"error": f"Request failed with status {response.status_code}: {response.text}"},
                 status=response.status_code
             )
 
         except requests.RequestException as e:
-            # Handle network errors or other request issues
             return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 class CreateUserView(APIView):

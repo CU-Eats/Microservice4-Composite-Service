@@ -6,3 +6,14 @@ INFO 2024-12-10 21:17:15,261 basehttp "GET / HTTP/1.1" 200 5103
 WARNING 2024-12-10 21:17:34,419 log Method Not Allowed: /api/orders/create_batch_order/
 WARNING 2024-12-10 21:17:34,420 basehttp "GET /api/orders/create_batch_order/ HTTP/1.1" 405 8631
 INFO 2024-12-10 21:20:27,142 autoreload Watching for file changes with StatReloader
+INFO 2024-12-11 03:11:48,366 autoreload Watching for file changes with StatReloader
+INFO 2024-12-11 03:12:28,946 autoreload Watching for file changes with StatReloader
+INFO 2024-12-11 03:12:30,016 basehttp "GET / HTTP/1.1" 200 5103
+WARNING 2024-12-11 03:12:39,756 log Method Not Allowed: /api/orders/create_batch_order/
+WARNING 2024-12-11 03:12:39,756 basehttp "GET /api/orders/create_batch_order/ HTTP/1.1" 405 8631
+WARNING 2024-12-11 03:13:49,011 log Bad Request: /api/orders/create_batch_order/
+WARNING 2024-12-11 03:13:49,012 basehttp "POST /api/orders/create_batch_order/ HTTP/1.1" 400 8604
+INFO 2024-12-11 03:14:08,028 basehttp "POST /api/orders/create_batch_order/ HTTP/1.1" 201 9070
+WARNING 2024-12-11 03:14:35,039 log Bad Request: /api/orders/create_batch_order/
+WARNING 2024-12-11 03:14:35,041 basehttp "POST /api/orders/create_batch_order/ HTTP/1.1" 400 8604
+INFO 2024-12-11 03:15:26,413 basehttp "POST /api/orders/create_batch_order/ HTTP/1.1" 201 9393

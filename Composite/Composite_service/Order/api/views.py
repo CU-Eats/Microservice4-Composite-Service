@@ -1,6 +1,7 @@
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
+import requests
 from asgiref.sync import async_to_sync
 from Order.api.serializers import DummySerializer
 import aiohttp
@@ -15,6 +16,9 @@ class OrderViewSet(viewsets.GenericViewSet):
     queryset = []
     @action(detail=False, methods=['POST'])
     def create_batch_order(self, request):
+        message, status_code = self.check_food_exists(request)
+        if status_code == -1:
+            return Response({'message': message}, status=status.HTTP_400_BAD_REQUEST)
         return async_to_sync(self._create_batch_order)(request)
 
     async def _create_batch_order(self, request):
@@ -79,10 +83,34 @@ class OrderViewSet(viewsets.GenericViewSet):
             'errors': errors
         }
 
-        # Return appropriate status based on the results
         if created_orders:
             return Response(response_data, status=status.HTTP_201_CREATED)
         return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
+
+    def check_food_exists(self, request):
+        products = request.data.get('products', [])
+        if not products:
+            return Response(
+                {'error': "The 'products' field is required and should contain a list of products."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        for product in products:
+            restaurant_name = product['restaurant_name']
+            product_name = product['product_name']
+            PRODUCT_SERVICE_URL = f"{settings.RESTAURANT_URL}/restaurant/getMenu/{restaurant_name}"
+            try:
+                response = requests.get(PRODUCT_SERVICE_URL)
+                if response.status_code != 200:
+                    return ("invalid restaurant", -1)
+                else:
+                    data = response.json()
+                    restaurant_products = [p['name'] for p in data]
+                    if product_name not in restaurant_products:
+                        return ("invalid product", -1)
+
+            except requests.RequestException as e:
+                return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return ("valid", 1)
 
     async def _make_order_request(self, session, url, product, payload):
         try:
