@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Application Portal</title>
+  <style>
+    body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-image: url('image.png'); /* Replace with your image URL */
+    background-size: cover; /* Make the image cover the whole background */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Prevent tiling */
+    color: blue; /* Set text color to white for better contrast */
+    height: 100vh; /* Ensure it takes the full viewport height */
+    margin: 0;
+    }
+
+    h1, h2 {
+      text-align: center;
+      font-size: 3em; /* Make title larger */
+      margin-bottom: 40px; /* Add space below the title */
+    }
+
+    .menu-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 100px;
+      margin-top: 200px;
+    }
+
+    .menu-buttons button {
+    font-size: 2em; /* Increase text size */
+    padding: 30px 60px; /* Increase button size */
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.2s;
+    }
+
+    .user-button {
+      background-color: #007BFF;
+      color: white;
+    }
+
+    .user-button:hover {
+      background-color: #0056b3;
+    }
+
+    .restaurant-button {
+      background-color: #28A745;
+      color: white;
+    }
+
+    .restaurant-button:hover {
+      background-color: #1e7e34;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .form-container {
+      margin-top: 20px;
+    }
+
+    .form-group {
+      font-size: 1.5em;
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      font-size: 0.5em;
+    }
+
+    button {
+      font-size: 1em;
+      padding: 10px 20px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 5px;
+      background-color: #007BFF;
+      color: white;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .response {
+      margin-top: 580px;
+      text-align: center;
+    }
+
+    .success {
+      color: green;
+    }
+
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <!-- Default Page -->
+  <div id="defaultPage">
+    <h1>Welcome to Columbia Eats</h1>
+    <div class="menu-buttons">
+      <button class="user-button" onclick="showSection('userPage')">User</button>
+      <button class="restaurant-button" onclick="showSection('restaurantPage')">Restaurant</button>
+    </div>
+  </div>
+
+  <!-- User Page -->
+  <div id="userPage" class="hidden">
+    <h2>User Page</h2>
+    <div class="menu-buttons">
+      <button class="user-button" onclick="showSection('signupForm')">Sign Up</button>
+      <button class="user-button" onclick="showSection('loginForm')">Login</button>
+      <button class="user-button" onclick="showSection('getMenuForm')">Get Menu</button>
+      <button onclick="showSection('defaultPage')">Back to Home</button>
+    </div>
+  </div>
+
+  <!-- Restaurant Page -->
+  <div id="restaurantPage" class="hidden">
+    <h2>Restaurant Page</h2>
+    <div class="menu-buttons">
+      <button class="restaurant-button" onclick="showSection('addFoodForm')">Add Food</button>
+      <button onclick="showSection('defaultPage')">Back to Home</button>
+    </div>
+  </div>
+
+  <!-- Sign Up Form -->
+  <div id="signupForm" class="hidden form-container">
+    <h2>User Sign Up</h2>
+    <form>
+      <div class="form-group">
+        <label for="signup_uni">University ID (UNI)</label>
+        <input type="text" id="signup_uni" placeholder="e.g., abc123">
+      </div>
+      <div class="form-group">
+        <label for="signup_email">Email</label>
+        <input type="email" id="signup_email" placeholder="e.g., example@mail.com">
+      </div>
+      <div class="form-group">
+        <label for="signup_first_name">First Name</label>
+        <input type="text" id="signup_first_name" placeholder="e.g., John">
+      </div>
+      <div class="form-group">
+        <label for="signup_last_name">Last Name</label>
+        <input type="text" id="signup_last_name" placeholder="e.g., Doe">
+      </div>
+      <div class="form-group">
+        <label for="signup_id_type">ID Type</label>
+        <input type="text" id="signup_id_type" placeholder="e.g., student">
+      </div>
+      <div class="form-group">
+        <label for="signup_password">Password</label>
+        <input type="password" id="signup_password">
+      </div>
+      <button onclick="signupUser()">Sign Up</button>
+      <div class="response" id="signupResponse"></div>
+      <button onclick="showSection('userPage')">Back</button>
+    </form>
+  </div>
+
+  <!-- Login Form -->
+<div id="loginForm" class="hidden form-container">
+  <h2>User Login</h2>
+  <form>
+    <div class="form-group">
+      <label for="login_uni">University ID (UNI)</label>
+      <input type="text" id="login_uni" placeholder="e.g., abc123">
+    </div>
+    <div class="form-group">
+      <label for="login_password">Password</label>
+      <input type="password" id="login_password">
+    </div>
+    <button type="button" onclick="loginUser()">Login</button>
+    <div class="response" id="loginResponse"></div>
+    <button onclick="showSection('userPage')">Back</button>
+  </form>
+</div>
+
+<!-- Order Page -->
+<div id="orderPage" class="hidden form-container">
+  <h2>Create Batch Order</h2>
+  <form>
+    <div class="form-group">
+      <label for="order_user_id">User ID</label>
+      <input type="text" id="order_user_id" placeholder="Enter User ID">
+    </div>
+    <div class="form-group">
+      <label for="order_user_name">User Name</label>
+      <input type="text" id="order_user_name" placeholder="Enter User Name">
+    </div>
+    <div id="orderProducts">
+      <h4>Products</h4>
+      <div class="product">
+        <label for="product_name">Product Name</label>
+        <input type="text" class="product_name" placeholder="Enter Product Name">
+        <label for="restaurant_name">Restaurant Name</label>
+        <input type="text" class="restaurant_name" placeholder="Enter Restaurant Name">
+        <label for="quantity">Quantity</label>
+        <input type="number" class="quantity" placeholder="Enter Quantity">
+      </div>
+    </div>
+    <button type="button" onclick="addProduct()">Add Another Product</button>
+    <button type="button" onclick="createBatchOrder()">Create Order</button>
+    <div class="response" id="orderResponse"></div>
+  </form>
+  <button type="button" onclick="showSection('loginForm')">Logout</button>
+</div>
+
+  
+
+  <!-- Get Menu Form -->
+  <div id="getMenuForm" class="hidden form-container">
+    <h2>Get Menu</h2>
+    <form onsubmit="return false;"> <!-- Prevent form submission -->
+      <div class="form-group">
+        <label for="menu_restaurant">Restaurant Name</label>
+        <input type="text" id="menu_restaurant" placeholder="e.g., Sample Restaurant">
+      </div>
+      <button type="button" onclick="getMenu()">Get Menu</button>
+      <div class="response" id="menuResponse"></div>
+      <button onclick="showSection('userPage')">Back</button>
+    </form>
+  </div>
+  
+  <!-- Add Food Form -->
+  <div id="addFoodForm" class="hidden form-container">
+    <h2>Add a New Food Item</h2>
+    <form onsubmit="return false;"> <!-- Prevent page refresh -->
+      <div class="form-group">
+        <label for="food_restaurant">Restaurant Name</label>
+        <input type="text" id="food_restaurant" placeholder="e.g., Sample Restaurant">
+      </div>
+      <div class="form-group">
+        <label for="food_name">Food Name</label>
+        <input type="text" id="food_name" placeholder="e.g., Pizza">
+      </div>
+      <div class="form-group">
+        <label for="food_price">Price</label>
+        <input type="number" id="food_price" placeholder="e.g., 9.99">
+      </div>
+      <div class="form-group">
+        <label for="food_calorie">Calories</label>
+        <input type="number" id="food_calorie" placeholder="e.g., 450">
+      </div>
+      <div class="form-group">
+        <label for="food_description">Description</label>
+        <textarea id="food_description" placeholder="e.g., Delicious pizza"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="food_is_available">Available</label>
+        <input type="checkbox" id="food_is_available" checked>
+      </div>
+      <button type="button" onclick="addFood()">Add Food Item</button>
+      <div class="response" id="addFoodResponse"></div>
+      <button onclick="showSection('restaurantPage')">Back</button>
+    </form>
+  </div>  
+
+  <script>
+
+function showSection(sectionId) {
+    const sections = [
+      "defaultPage", 
+      "userPage", 
+      "restaurantPage", 
+      "loginForm", 
+      "getMenuForm", 
+      "orderPage", 
+      "signupForm",
+      "addFoodForm"
+    ]; // List of all sections
+
+    // Iterate over all sections
+    sections.forEach((id) => {
+      const section = document.getElementById(id);
+      if (section) {
+        if (id === sectionId) {
+          section.classList.remove("hidden");
+          section.style.display = "block"; // Show the selected section
+        } else {
+          section.classList.add("hidden");
+          section.style.display = "none"; // Hide other sections
+        }
+      }
+    });
+  }
+
+  async function loginUser() {
+    const uni = document.getElementById('login_uni').value;
+    const password = document.getElementById('login_password').value;
+
+    const data = { uni, password };
+
+    const url = 'http://18.218.176.54:8001/api/user/login/'; 
+
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      const responseData = await response.json();
+
+      if (response.ok) {
+        // Successful login, redirect to Order Page
+        //document.getElementById('order_uni').value = responseData.uni;
+        //document.getElementById('order_first_name').value = responseData.first_name;
+        showSection('orderPage');
+      } else {
+        // Show error
+        document.getElementById('loginResponse').innerHTML = `<p class="error">${responseData.error}</p>`;
+      }
+    } catch (error) {
+      document.getElementById('loginResponse').innerHTML = `<p class="error">Error: ${error.message}</p>`;
+    }
+  }
+
+  function addProduct() {
+    const productDiv = document.createElement("div");
+    productDiv.classList.add("product");
+
+    productDiv.innerHTML = `
+      <label for="product_name">Product Name</label>
+      <input type="text" class="product_name" placeholder="Enter Product Name">
+      <label for="restaurant_name">Restaurant Name</label>
+      <input type="text" class="restaurant_name" placeholder="Enter Restaurant Name">
+      <label for="quantity">Quantity</label>
+      <input type="number" class="quantity" placeholder="Enter Quantity">
+    `;
+    document.getElementById("orderProducts").appendChild(productDiv);
+  }
+
+  async function createBatchOrder() {
+  const userId = document.getElementById("order_user_id").value;
+  const userName = document.getElementById("order_user_name").value;
+
+  const products = Array.from(document.querySelectorAll(".product")).map((product) => ({
+    product_name: product.querySelector(".product_name").value,
+    restaurant_name: product.querySelector(".restaurant_name").value,
+    quantity: parseInt(product.querySelector(".quantity").value, 10),
+  }));
+
+  const data = {
+    user_id: userId,
+    user_name: userName,
+    products: products,
+  };
+
+  try {
+    const response = await fetch("http://18.218.176.54:8001/api/orders/create_batch_order/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    const orderResponseDiv = document.getElementById("orderResponse");
+
+    if (response.ok) {
+      const responseData = await response.json();
+
+      // Format the response into a table
+      const tableHTML = `
+        <h3>Order Details</h3>
+        <p><strong>Order ID:</strong> ${responseData.order_id}</p>
+        <p><strong>User ID:</strong> ${responseData.user_id}</p>
+        <p><strong>User Name:</strong> ${responseData.user_name}</p>
+        <h4>Created Orders</h4>
+        <table border="1" style="width:100%; text-align:left;">
+          <thead>
+            <tr>
+              <th>Product Name</th>
+              <th>Restaurant Name</th>
+              <th>Quantity</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${responseData.created_orders
+              .map(
+                (order) => `
+              <tr>
+                <td>${order.product_name}</td>
+                <td>${order.restaurant_name}</td>
+                <td>${order.quantity}</td>
+              </tr>
+            `
+              )
+              .join("")}
+          </tbody>
+        </table>
+      `;
+
+      orderResponseDiv.innerHTML = tableHTML;
+    } else {
+      const errorText = await response.text();
+      orderResponseDiv.innerHTML = `<p class="error">Error: ${errorText}</p>`;
+    }
+  } catch (error) {
+    console.error("Fetch error:", error);
+    document.getElementById("orderResponse").innerHTML = `<p class="error">Error: ${error.message}</p>`;
+  }
+}
+
+
+
+  
+    // Signup logic
+    async function signupUser() {
+      const data = {
+        uni: document.getElementById("signup_uni").value.trim(),
+        email: document.getElementById("signup_email").value.trim(),
+        first_name: document.getElementById("signup_first_name").value.trim(),
+        last_name: document.getElementById("signup_last_name").value.trim(),
+        id_type: document.getElementById("signup_id_type").value.trim(),
+        password: document.getElementById("signup_password").value.trim(),
+      };
+  
+      const url = 'http://18.218.176.54:8001/api/user/signup/';
+      const responseDiv = document.getElementById("signupResponse");
+  
+      try {
+        const response = await fetch(url, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        });
+  
+        if (response.ok) {
+          const result = await response.json();
+          responseDiv.innerHTML = `<p class="success">User successfully created! Response:</p><pre>${JSON.stringify(result, null, 2)}</pre>`;
+        } else {
+          const errorText = await response.text();
+          responseDiv.innerHTML = `<p class="error">Error: ${response.status}: ${errorText}</p>`;
+        }
+      } catch (err) {
+        responseDiv.innerHTML = `<p class="error">Error: ${err.message}</p>`;
+      }
+    }
+  
+  
+    // Get Menu logic
+    async function getMenu() {
+    const restaurantName = encodeURIComponent(document.getElementById("menu_restaurant").value.trim());
+    const url = `http://18.218.176.54:8001/api/restaurant/getMenu/${restaurantName}`;
+    const responseDiv = document.getElementById("menuResponse");
+
+    try {
+        const response = await fetch(url, { method: "GET" });
+
+        if (response.ok) {
+            const data = await response.json();
+            responseDiv.innerHTML = `<h2>Menu for ${decodeURIComponent(restaurantName)}</h2>`;
+            
+            // Create a table for the menu items
+            let tableHTML = `
+                <table border="1" style="width:100%; border-collapse:collapse;">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Price</th>
+                            <th>Calories</th>
+                            <th>Description</th>
+                            <th>Availability</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+            
+            // Populate the table with the menu items
+            data.forEach(item => {
+                tableHTML += `
+                    <tr>
+                        <td>${item.name}</td>
+                        <td>${item.price}</td>
+                        <td>${item.calorie}</td>
+                        <td>${item.description}</td>
+                        <td>${item.is_available ? "Yes" : "No"}</td>
+                    </tr>
+                `;
+            });
+
+            tableHTML += `</tbody></table>`;
+            responseDiv.innerHTML += tableHTML;
+        } else {
+            const errorText = await response.text();
+            responseDiv.innerHTML = `<p class="error">Request failed with status ${response.status}: ${errorText}</p>`;
+        }
+    } catch (err) {
+        responseDiv.innerHTML = `<p class="error">Error: ${err.message}</p>`;
+    }
+}
+
+  
+    // Add Food logic
+    async function addFood() {
+      const data = {
+        restaurant: document.getElementById("food_restaurant").value.trim(),
+        name: document.getElementById("food_name").value.trim(),
+        price: parseFloat(document.getElementById("food_price").value.trim()),
+        calorie: parseInt(document.getElementById("food_calorie").value.trim()),
+        description: document.getElementById("food_description").value.trim(),
+        is_available: document.getElementById("food_is_available").checked,
+      };
+
+      const url = `http://18.218.176.54:8001/api/restaurant/add/`; 
+      const responseDiv = document.getElementById("addFoodResponse");
+
+      try {
+        const response = await fetch(url, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        });
+
+        if (response.ok) {
+          const result = await response.json();
+          responseDiv.innerHTML = `<p class="success">Food item added successfully! Response:</p><pre>${JSON.stringify(result, null, 2)}</pre>`;
+        } else {
+          const errorText = await response.text();
+          responseDiv.innerHTML = `<p class="error">Error: ${response.status}: ${errorText}</p>`;
+        }
+      } catch (err) {
+        responseDiv.innerHTML = `<p class="error">Error: ${err.message}</p>`;
+      }
+    }
+  </script>
+  
+</body>
+</html>
