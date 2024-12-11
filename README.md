@@ -48,7 +48,21 @@ The Composite Microservice also exposes RESTful endpoints to interact with indiv
 - URL: ```GET /api/orders/```
 - Description: Retrieves order data from the Order microservice.
 
+## How to Run
+1. Install Dependencies: Install the required libraries using the requirements.txt file:
+```pip install -r requirements.txt```
+2. Start the Server: Launch the Django server:
+```python manage.py runserver```
 
+## Access Endpoints:
+- GraphQL API: http://127.0.0.1:8000/graphql/
+- Admin Dashboard: http://127.0.0.1:8000/admin/
+
+## Technologies Used
+Python: Backend language.
+Django: Web framework for building the microservice.
+Graphene-Django: GraphQL integration for Django.
+Django REST Framework: RESTful API implementation.
 
 ## Architecture
 The Composite Microservice follows a modular architecture, where each component interacts with the others through well-defined interfaces. Here's a high-level overview:
