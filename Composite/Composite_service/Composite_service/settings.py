@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "User",
     "Restaurant",
     "Order",
+    "graphene_django",
 ]
 CORS_ALLOW_ALL_ORIGINS = True
 
