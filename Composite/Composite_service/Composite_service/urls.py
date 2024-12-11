@@ -19,6 +19,7 @@ from django.urls import path, include
 from rest_framework import routers
 from User.api.views import LoginUserView, CreateUserView
 from Order.api.views import OrderViewSet
+from graphene_django.views import GraphQLView
 
 router = routers.DefaultRouter()
 router.register(r'api/orders', OrderViewSet, basename='orders')
@@ -29,4 +30,5 @@ urlpatterns = [
     path('api/user/login/', LoginUserView.as_view()),
     path('api/user/signup/', CreateUserView.as_view()),
     path('', include(router.urls)),
+    path("graphql/", GraphQLView.as_view(graphiql=True)),
 ]
