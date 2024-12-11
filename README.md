@@ -50,8 +50,11 @@ The Composite Microservice also exposes RESTful endpoints to interact with indiv
 
 ## How to Run
 1. Install Dependencies: Install the required libraries using the requirements.txt file:
+
 ```pip install -r requirements.txt```
+
 2. Start the Server: Launch the Django server:
+
 ```python manage.py runserver```
 
 ## Access Endpoints:
