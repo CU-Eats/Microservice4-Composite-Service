@@ -123,6 +123,10 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "Composite_service.wsgi.application"
 
+##### For GraphQL ##########
+GRAPHENE = {
+    "SCHEMA": "Composite_service.schema.schema"
+}
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
