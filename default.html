@@ -8,19 +8,19 @@
     body {
     font-family: Arial, sans-serif;
     text-align: center;
-    background-image: url('image.png'); /* Replace with your image URL */
-    background-size: cover; /* Make the image cover the whole background */
-    background-position: center; /* Center the image */
-    background-repeat: no-repeat; /* Prevent tiling */
-    color: blue; /* Set text color to white for better contrast */
-    height: 100vh; /* Ensure it takes the full viewport height */
+    background-image: url('image.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: blue;
+    height: 100vh;
     margin: 0;
     }
 
     h1, h2 {
       text-align: center;
-      font-size: 3em; /* Make title larger */
-      margin-bottom: 40px; /* Add space below the title */
+      font-size: 3em;
+      margin-bottom: 40px;
     }
 
     .menu-buttons {
@@ -31,8 +31,8 @@
     }
 
     .menu-buttons button {
-    font-size: 2em; /* Increase text size */
-    padding: 30px 60px; /* Increase button size */
+    font-size: 2em;
+    padding: 30px 60px;
     border: none;
     border-radius: 8px;
     cursor: pointer;
@@ -293,10 +293,10 @@ function showSection(sectionId) {
       if (section) {
         if (id === sectionId) {
           section.classList.remove("hidden");
-          section.style.display = "block"; // Show the selected section
+          section.style.display = "block";
         } else {
           section.classList.add("hidden");
-          section.style.display = "none"; // Hide other sections
+          section.style.display = "none";
         }
       }
     });
@@ -322,12 +322,10 @@ function showSection(sectionId) {
       const responseData = await response.json();
 
       if (response.ok) {
-        // Successful login, redirect to Order Page
-        //document.getElementById('order_uni').value = responseData.uni;
-        //document.getElementById('order_first_name').value = responseData.first_name;
+
         showSection('orderPage');
       } else {
-        // Show error
+
         document.getElementById('loginResponse').innerHTML = `<p class="error">${responseData.error}</p>`;
       }
     } catch (error) {

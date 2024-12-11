@@ -8,13 +8,10 @@ from django.views.decorators.csrf import csrf_exempt
 
 def call_get_food_items_by_restaurant(request, restaurant_name):
     try:
-        # Construct the endpoint URL with the restaurant name
         endpoint_url = f"{settings.RESTAURANT_URL}/restaurant/getMenu/{restaurant_name}/"
 
-        # Make the GET request
         response = requests.get(endpoint_url, timeout=10)
 
-        # Check response and return data
         if response.status_code == 200:
             return JsonResponse(response.json(), safe=False)
         else:
@@ -25,7 +22,6 @@ def call_get_food_items_by_restaurant(request, restaurant_name):
     
 def call_add_food_item(request):
     if request.method == 'POST':
-        # Extract data from the request body
         body = json.loads(request.body)
 
         data = {
@@ -38,13 +34,10 @@ def call_add_food_item(request):
         }
 
         try:
-            # URL for the add_food_item endpoint
             endpoint_url = f"{settings.RESTAURANT_URL}/restaurant/add/"
 
-            # Make the POST request with the data
             response = requests.post(endpoint_url, json=data, timeout=10)
 
-            # Check and return the response from the other service
             if response.status_code == 201:
                 return JsonResponse(response.json(), status=201)
             else:
