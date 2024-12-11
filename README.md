@@ -11,7 +11,7 @@ The Composite Microservice orchestrates the communication between the User, Prod
 - GraphQL implementation
 
 ### GraphQL Implementaion
-The GraphQL API is implemented in the `Composite_service` folder, specifically in the `schema.py` file. It offers a flexible and efficient way to query data from the underlying microservices. The GraphQL schema is designed using **Graphene-Django** and is fully extensible for future needs. The `/graphql/` endpoint supports the key feature of querying a restaurant by its name and display its menu.
+The GraphQL API is implemented in the Composite_service/schema.py file and provides flexible querying capabilities. It allows you to query a restaurant by its name and retrieve details such as its menu.
 
 #### Example Query
 To test the GraphQL API, visit the endpoint `/graphql/` and use a query like the following:
@@ -23,6 +23,33 @@ query {
   }
 }
 ```
+### API Endpoints
+GraphQL API
+- URL: ```GET /graphql/```
+- Description: Provides a GraphQL interface to query combined data from the microservices.
+- Input Argument: restaurant name for querying the restaurant.
+
+### REST Endpoints
+The Composite Microservice also exposes RESTful endpoints to interact with individual microservices, such as:
+
+#### Admin Dashboard
+- URL: ```GET /admin/```
+- Description: Provides access to the Django admin interface for managing database records.
+#### Restaurant API
+- URL: ```GET /api/restaurant/```
+- Description: Integrates the Restaurant microservice for restaurant-related operations.
+#### User Login
+- URL: ```POST /api/user/login/```
+- Description: Handles user authentication via the User microservice.
+#### User Signup
+- URL: ```POST /api/user/signup/```
+- Description: Creates a new user account via the User microservice.
+#### Orders API
+- URL: ```GET /api/orders/```
+- Description: Retrieves order data from the Order microservice.
+
+
+
 ## Architecture
 The Composite Microservice follows a modular architecture, where each component interacts with the others through well-defined interfaces. Here's a high-level overview:
 - Frontend (React): A web interface built with React for an interactive user experience.
