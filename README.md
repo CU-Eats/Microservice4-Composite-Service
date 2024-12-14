@@ -14,10 +14,11 @@ The Composite Microservice orchestrates the communication between the User, Prod
 
 ## Feature
 - Unified API Gateway
-- Frontend Interface
-- User Authentication and Authorization
-- Product Browsing and Search
-- Order Placement and Tracking
+- User Interface
+- User Signup and Login
+- Menu fetching
+- Order Placement
+- Menu Update
 - Microservices Communication Management
 - GraphQL implementation
 
