@@ -113,7 +113,7 @@ Provided option of updating menu
 
 ## Architecture
 The Composite Microservice follows a modular architecture, where each component interacts with the others through well-defined interfaces. Here's a high-level overview:
-- Frontend (React): A web interface built with HTML/CSS and Javascript for an interactive user experience.
+- Frontend : A user interface built with HTML/CSS and Javascript for an interactive user experience.
 - Backend Gateway (Django): A Django application that handles API requests, communicates with underlying microservices, and aggregates data.
 - Microservices Communication: Utilizes RESTful APIs to interact with the User, Product, and Order microservices.
 
