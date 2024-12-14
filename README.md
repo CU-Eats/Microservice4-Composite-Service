@@ -1,6 +1,13 @@
 # Welcome to Columbia Eats
 Columbia Eats is a comprehensive platform designed to enhance the dining experience on campus by connecting students and restaurants. With a user-friendly interface and efficient backend, the service allows users to easily sign up, log in, browse restaurant menus, and place batch orders for food items across multiple restaurants. For restaurant owners, Columbia Eats offers tools to manage menus and add new food items dynamically. We aim to use our service to help our campus dining enviroment for both students and restaurants
 
+## Team Members
+- Liang Yang
+- Daixi Shen
+- Jiacheng Liu
+- Yili Yu
+- Chih-Hsin Chen
+- Weiheng Yang
 
 ## Microservice4-Composite-Service
 The Composite Microservice orchestrates the communication between the User, Product, and Order microservices. It provides a single point of access for clients, handling API requests, aggregating data, and rendering the frontend interface. This microservice enhances scalability and maintainability by decoupling the frontend from individual backend services.
