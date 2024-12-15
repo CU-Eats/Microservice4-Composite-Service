@@ -1,4 +1,4 @@
-name: CI/CD Workflow
+name: CI/CD
 
 on:
   push:
@@ -9,12 +9,44 @@ on:
       - main
 
 jobs:
-  workflow:
+  test:
     runs-on: ubuntu-latest
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Run Workflow Step
-      run: echo "CICD complete"
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+
+    - name: Install dependencies
+      run: |
+        python -m venv venv
+        source venv/bin/activate
+        pip install -r requirements.txt
+
+    - name: Run database migrations
+      run: |
+        python manage.py makemigrations
+        python manage.py migrate
+
+    - name: Run tests
+      run: python manage.py test
+
+    - name: Run linting (Flake8)
+      run: flake8 .
+
+    - name: Run security checks (Bandit)
+      run: bandit -r .
+
+    - name: Check code formatting (Black)
+      run: black --check .
+
+    - name: Check import order (isort)
+      run: isort --check-only .
+
+    - name: Perform Django system checks
+      run: python manage.py check
+
